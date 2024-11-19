@@ -1,0 +1,6 @@
+praw.ini
+elasticsearch*
+kafka*
+kibana*
+logstash*
+venv

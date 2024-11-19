@@ -4,3 +4,4 @@ kafka*
 kibana*
 logstash*
 venv
+elastic-start-local

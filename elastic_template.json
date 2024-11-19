@@ -1,0 +1,15 @@
+{
+  "index_patterns": ["entity-counts-*"],
+  "template": {
+    "mappings": {
+      "properties": {
+        "entity": {
+          "type": "keyword"
+        },
+        "count": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

@@ -2,12 +2,9 @@ import praw
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import lit
 
-SUBREDDIT = "unpopularopinion"
+SUBREDDIT = "leagueoflegends"
 KAFKA_SERVER = "localhost:9092"
 TOPIC = "reddit"
-
-spark = SparkSession.builder.appName("RedditWriter").getOrCreate()
-spark.sparkContext.setLogLevel("ERROR")
 
 def save(text):
     df = spark.createDataFrame([(text,)], ["value"])
@@ -15,8 +12,15 @@ def save(text):
 
 
 # Main code
+
+# Init spark session
+spark = SparkSession.builder.appName("RedditWriter").getOrCreate()
+spark.sparkContext.setLogLevel("ERROR")
+
+# Get reddit stream
 reddit = praw.Reddit()
 
+# Write comments and submissions to Kafka
 for comment in reddit.subreddit(SUBREDDIT).stream.comments():
     save(comment.body)
 

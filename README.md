@@ -1,3 +1,7 @@
+# Subreddit Named Entity Counter
+
+This simple project, created for CS 6350 at UTD (Big Data Management and Analytics), streams data from a subreddit using the [PRAW API](https://praw.readthedocs.io/en/stable/) then performs named entity extraction and keeps a continuous count of the named entities it extracts. This data is then be displayed in Kibana with Elasticsearch. The first Kafka topic simply has raw post and comment text streamed to it while the second Kafka topic has the named entity counts.
+
 ## Installation
 
 You will need to do the following:
@@ -58,12 +62,19 @@ Table should be:
 - horizontal axis - Top 20 values of entity (ranked by last value of count)
 - vertical axis - Last value of count
 
+`cd` to logstash folder and run:
+
+```bash
+bin/logstash -f ../logstash.conf
+```
+
 ### Resetting State
 
-If for some reason you need to reset the kafka topics:
+If for some reason you need to reset the kafka topics (don't forget to recreate them after):
 
 ```bash
 # cd to kafka installation
 bin/kafka-topics.sh --delete --topic reddit --bootstrap-server localhost:9092
 bin/kafka-topics.sh --delete --topic names --bootstrap-server localhost:9092
 ```
+
